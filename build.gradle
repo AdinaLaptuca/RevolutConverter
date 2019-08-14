@@ -34,8 +34,5 @@ ext {
     squareRetrofit2Version = '2.3.0'
     squareRetrofitRxJava2Version = '2.4.0'
     rxPreferences = '2.0.0'
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+    supportLibraryVersion = '27.1.1'
 }

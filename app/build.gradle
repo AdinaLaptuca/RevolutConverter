@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '29.0.2'
     defaultConfig {
         applicationId "com.adinalaptuca.revolutconverter"
-        minSdkVersion 16
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -43,6 +43,7 @@ dependencies {
     //rx
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "com.f2prateek.rx.preferences2:rx-preferences:$rxPreferences"
 
     //dagger
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -56,5 +57,6 @@ dependencies {
 
     //ui
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
 
 }
