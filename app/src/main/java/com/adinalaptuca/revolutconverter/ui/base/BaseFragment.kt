@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import com.adinalaptuca.revolutconverter.R
+import com.adinalaptuca.revolutconverter.ui.CustomDialog
 import dagger.android.support.AndroidSupportInjection
 
 /**
@@ -18,6 +20,7 @@ abstract class BaseFragment<out T : BaseMvp.Presenter> : Fragment(), BaseMvp.Vie
 
     protected abstract fun presenter(): T
     override var isOverridingBack: Boolean = false
+    private var isNoInternetDialogDisplayed = false
 
 
     // TODO: no internet custom dialog and custom toast!!
@@ -74,6 +77,46 @@ abstract class BaseFragment<out T : BaseMvp.Presenter> : Fragment(), BaseMvp.Vie
 
     override fun onBackTriggered() {
 
+    }
+
+    override fun showActionNotAvailableInOfflineMode() {
+        if (!isNoInternetDialogDisplayed) {
+            isNoInternetDialogDisplayed = true
+            context?.let {
+                val actionInOfflineNotAvailableDialog = CustomDialog(it)
+                actionInOfflineNotAvailableDialog.setPositiveButtonListener(object : CustomDialog.SaveClickListener {
+                    override fun save() {}
+                })
+                actionInOfflineNotAvailableDialog.showDialog(resources.getString(R.string.wifi_signal),
+                    resources.getString(R.string.no_internet_connection_message), resources.getString(R.string.ok_button))
+                actionInOfflineNotAvailableDialog.setDismissListener(object : CustomDialog.DismissListener {
+                    override fun dismiss() {
+                        isNoInternetDialogDisplayed = false
+                    }
+                })
+            }
+        }
+    }
+
+    override fun doIfHasInternetConnectivity(doAfter: () -> Unit): Boolean {
+        return if (!presenter().hasInternetConnection) {
+            showActionNotAvailableInOfflineMode()
+            true
+        } else {
+            doAfter.invoke()
+            false
+        }
+    }
+
+    override fun doIfHasInternetConnectivity(doAfter: () -> Unit, doOnError: () -> Unit): Boolean {
+        return if (!presenter().hasInternetConnection) {
+            showActionNotAvailableInOfflineMode()
+            doOnError.invoke()
+            true
+        } else {
+            doAfter.invoke()
+            false
+        }
     }
 
 }

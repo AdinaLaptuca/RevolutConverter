@@ -28,9 +28,49 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextMessage">
+        <item name="android:textSize">@dimen/text_big</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="TextSubtitle">
         <item name="android:textSize">@dimen/text_xsmall</item>
         <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/colorAccentTransparent</item>
+    </style>
+
+    <style name="BigTextViewStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_big</item>
+    </style>
+
+    <style name="MediumTextViewStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+    </style>
+
+    <style name="SmallTextViewStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="PositiveButton">
+        <item name="android:background">@drawable/positive_button_background</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="NegativeButton" parent="PositiveButton">
+        <item name="android:background">@drawable/negative_button_background</item>
+        <item name="android:textColor">@color/text_color_button_negative</item>
     </style>
 
 </resources>

@@ -44,19 +44,63 @@ class RatesFragment : BaseFragment<RatesMvp.Presenter>(), SwipeRefreshLayout.OnR
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ratesAdapter.setHasStableIds(true);
+
         recyclerCurrencies.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = ratesAdapter
         }
 
-        presenter.getRates("EUR")
+        swipe_container.setOnRefreshListener(this)
+
+        doIfHasInternetConnectivity{
+            presenter.getRates("EUR")
+        }
+
+        ratesAdapter.setScrollToTopListener(object : RatesAdapter.ScrollToTopListener {
+            override fun scrollToTop(position: Int, base:String) {
+                doIfHasInternetConnectivity {
+                    recyclerCurrencies.smoothScrollToPosition(position)
+                    presenter.changeRate(base)
+                }
+            }
+        })
+    }
+
+    override fun showLoading(show: Boolean) {
+        if (show){
+            loadingIcon.visibility = View.VISIBLE
+            showErrorMessage(false)
+            recyclerCurrencies.visibility = View.GONE
+        }
+        else {
+            swipe_container.isRefreshing = false
+            loadingIcon.visibility = View.GONE
+            recyclerCurrencies.visibility = View.VISIBLE
+        }
+    }
+
+    override fun showErrorMessage(show: Boolean) {
+        if (show) {
+            swipe_container.isRefreshing = false
+            errorMessage.visibility = View.VISIBLE
+            recyclerCurrencies.visibility = View.GONE
+        }
+        else
+            errorMessage.visibility = View.GONE
     }
 
     override fun onRefresh() {
-        swipe_container.isRefreshing = false
+        doIfHasInternetConnectivity {
+            swipe_container.isRefreshing = true
+            showLoading(false)
+            presenter.changeRate("EUR") // come back to original
+        }
     }
 
     override fun setRatesList(response: RatesResponse) {
+        recyclerCurrencies.visibility = View.VISIBLE
+        swipe_container.isRefreshing = false
         ratesAdapter.setList(response)
     }
 }

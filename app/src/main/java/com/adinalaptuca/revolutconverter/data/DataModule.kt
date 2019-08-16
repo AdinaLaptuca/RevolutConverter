@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
 /**
@@ -21,12 +22,14 @@ internal open class DataModule {
     @Provides
     @Singleton
     open fun provideGson(): Gson = GsonBuilder()
-        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss zzz")
+        .setDateFormat("yyyy-MM-dd")
         .create()
 
     @Provides
     @Singleton
-    open fun provideOkHttpClient(context: Context): OkHttpClient = OkHttpClient()
+    open fun provideOkHttpClient(context: Context): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .build()
 
 
     @Provides

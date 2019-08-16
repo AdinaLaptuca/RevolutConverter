@@ -23,4 +23,25 @@ abstract class BaseActivity<out T : BaseMvp.Presenter> : AppCompatActivity(), Ba
 
     override fun onBackTriggered() {}
 
+    override fun doIfHasInternetConnectivity(doAfter: () -> Unit): Boolean {
+        return if (!presenter().hasInternetConnection) {
+            showActionNotAvailableInOfflineMode()
+            true
+        } else {
+            doAfter.invoke()
+            false
+        }
+    }
+    override fun doIfHasInternetConnectivity(doAfter: () -> Unit, doOnError: () -> Unit): Boolean {
+        return if (!presenter().hasInternetConnection) {
+            showActionNotAvailableInOfflineMode()
+            doOnError.invoke()
+            true
+        } else {
+            doAfter.invoke()
+            false
+        }
+    }
+
+    override fun showActionNotAvailableInOfflineMode() {}
 }

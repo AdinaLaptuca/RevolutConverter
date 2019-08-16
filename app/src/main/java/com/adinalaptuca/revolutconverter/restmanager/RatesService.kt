@@ -20,7 +20,7 @@ interface RatesService {
 
     @Headers(value = ["Content-Type: application/json"])
     @GET("latest")
-    fun getRates(@Header("base") base: String): Flowable<RatesResponse>
+    fun getRates(@Query("base") base: String): Flowable<RatesResponse>
 
     companion object {
         fun create(gson: Gson, okHttpClient: OkHttpClient): RatesService {

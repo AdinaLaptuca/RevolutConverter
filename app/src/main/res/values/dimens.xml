@@ -20,4 +20,6 @@
     <dimen name="margin_extra_big">32dp</dimen>
     <dimen name="margin_ultra_big">40dp</dimen>
 
+    <!-- Dialog -->
+    <dimen name="margin_dialog">50dp</dimen>
 </resources>

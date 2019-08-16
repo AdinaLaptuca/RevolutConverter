@@ -7,6 +7,9 @@ interface BaseMvp {
     interface View {
         fun onBackTriggered()
         var isOverridingBack: Boolean
+        fun showActionNotAvailableInOfflineMode()
+        fun doIfHasInternetConnectivity(doAfter: () -> Unit): Boolean
+        fun doIfHasInternetConnectivity(doAfter: () -> Unit, doOnError: () -> Unit): Boolean
     }
 
     interface Presenter {

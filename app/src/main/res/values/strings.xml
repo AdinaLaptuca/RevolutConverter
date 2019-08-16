@@ -4,6 +4,7 @@
     <string name="example_currency">Euro</string>
     <string name="example_currency_short">EUR</string>
     <string name="rates">Rates</string>
+    <string name="error_message">Unable to display data.\nPlease try again later.</string>
 
     <!-- Currencies list -->
     <string name="EUR">Euro</string>
@@ -39,5 +40,17 @@
     <string name="TRY">Turkish lira</string>
     <string name="USD">United States dollar</string>
     <string name="ZAR">South African rand</string>
+
+    <!--Lorem ipsum-->
+    <string name="lorem_short">Lorem ipsum dolor sit amet. </string>
+    <string name="lorem_medium">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. </string>
+    <string name="lorem_long">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</string>
+    <string name="lorem_extra_long">Lorem ipsum dolor sit amet. Nullam malesuada erat ut turpis.Nec porta ipsum. Suspendisse semper, nisi vel euismod posuere, augue augue eleifend metus, non varius magna nibh sit amet nibh. Ut nisi velit, tincidunt sit amet dui tristique, pharetra volutpat erat. Duis rhoncus dui sit amet odio efficitur, a aliquam dolor pulvinar. Integer malesuada finibus nisl sit amet sodales. Pellentesque nisl elit, consectetur sit amet imperdiet volutpat, tempor nec tellus. Phasellus quis mattis tortor, nec ullamcorper purus. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante. Ut eu neque tristique, pretium ex vel, pulvinar arcu.Sed sed ornare ante.</string>
+
+    <string name="cancel_button">Cancel</string>
+    <string name="ok_button">Ok</string>
+
+    <string name="wifi_signal">Wi-Fi Signal</string>
+    <string name="no_internet_connection_message">No internet connection detected!\n\nPlease go to the closest Wi-Fi point and try again</string>
 
 </resources>
