@@ -77,11 +77,11 @@ class RatesAdapter() : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
                             text = s.toString()
                             for (i in position + 1..items.size - 1) {
                                 if (!s.isNullOrEmpty()) {
-                                    Handler().post({ items.set(i, Currency(items[i].name, "%.2f".format(originalItems[i].value * s.toString().toDouble()).toDouble()))
-                                    notifyItemChanged(i)})
+                                    items.set(i, Currency(items[i].name, "%.2f".format(originalItems[i].value * s.toString().toDouble()).toDouble()))
+//                                    Handler().post({notifyItemChanged(i)})
                                 } else {
-                                    Handler().post({items.set(i, Currency(items[i].name, "%.2f".format(originalItems[i].value).toDouble())) //if empty string, show original
-                                    notifyItemChanged(i)})
+                                    items.set(i, Currency(items[i].name, "%.2f".format(originalItems[i].value).toDouble())) //if empty string, show original value
+//                                    Handler().post({notifyItemChanged(i)})
                                 }
                             }
                         }
