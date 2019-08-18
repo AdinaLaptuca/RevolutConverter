@@ -37,9 +37,8 @@ class RatesAdapter() : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return position
+        return position // I basically destroy the recycling :( otherwise I get an ugly bug on scrolling
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatesAdapter.RatesViewHolder {
         context = parent.context

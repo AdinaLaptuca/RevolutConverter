@@ -59,10 +59,10 @@ class RatesFragment : BaseFragment<RatesMvp.Presenter>(), SwipeRefreshLayout.OnR
 
         ratesAdapter.setScrollToTopListener(object : RatesAdapter.ScrollToTopListener {
             override fun scrollToTop(position: Int, base:String) {
-                doIfHasInternetConnectivity {
+//                doIfHasInternetConnectivity {
                     recyclerCurrencies.smoothScrollToPosition(position)
                     presenter.changeRate(base)
-                }
+//                }
             }
         })
     }
@@ -91,11 +91,11 @@ class RatesFragment : BaseFragment<RatesMvp.Presenter>(), SwipeRefreshLayout.OnR
     }
 
     override fun onRefresh() {
-        doIfHasInternetConnectivity {
+//        doIfHasInternetConnectivity {
             swipe_container.isRefreshing = true
             showLoading(false)
             presenter.changeRate("EUR") // come back to original
-        }
+//        }
     }
 
     override fun setRatesList(response: RatesResponse) {

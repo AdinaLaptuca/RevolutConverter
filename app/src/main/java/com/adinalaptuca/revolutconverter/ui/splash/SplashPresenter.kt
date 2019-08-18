@@ -13,9 +13,9 @@ class SplashPresenter(private val networkManager: NetworkManager) : BasePresente
     private val SPLASH_TIME_OUT: Long = 3000 // 3 sec
 
     override fun create() {
-        Handler().postDelayed({
-            view?.goToDashboard()
-            view?.killActivity()
-        }, SPLASH_TIME_OUT)
+//        Handler().postDelayed({
+//            view?.goToDashboard()
+//            view?.killActivity()
+//        }, SPLASH_TIME_OUT)
     }
 }

@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by adinalaptuca on Aug, 2019
