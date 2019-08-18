@@ -8,6 +8,8 @@ import android.view.View
 import com.adinalaptuca.revolutconverter.R
 import com.adinalaptuca.revolutconverter.restmanager.data.RatesResponse
 import com.adinalaptuca.revolutconverter.ui.base.BaseFragment
+import com.adinalaptuca.revolutconverter.ui.main.MainActivity
+import com.adinalaptuca.revolutconverter.utils.Keyboard.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_rates.*
 import javax.inject.Inject
 
@@ -63,6 +65,12 @@ class RatesFragment : BaseFragment<RatesMvp.Presenter>(), SwipeRefreshLayout.OnR
                     recyclerCurrencies.smoothScrollToPosition(position)
                     presenter.changeRate(base)
 //                }
+            }
+        })
+
+        ratesAdapter.setHideKeyboardListener(object : RatesAdapter.HideKeyboardListener {
+            override fun doHideKeyboard() {
+                hideKeyboard(activityContext as MainActivity)
             }
         })
     }

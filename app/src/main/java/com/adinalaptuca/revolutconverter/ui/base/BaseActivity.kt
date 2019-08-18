@@ -3,6 +3,9 @@ package com.adinalaptuca.revolutconverter.ui.base
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
+import android.widget.EditText
+import com.adinalaptuca.revolutconverter.utils.Keyboard
 import dagger.android.AndroidInjection
 
 /**
@@ -12,6 +15,8 @@ import dagger.android.AndroidInjection
 abstract class BaseActivity<out T : BaseMvp.Presenter> : AppCompatActivity(), BaseMvp.View {
 
     protected abstract fun presenter(): T
+    private var isDispatchEventActive = true
+
     override var isOverridingBack: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,4 +49,14 @@ abstract class BaseActivity<out T : BaseMvp.Presenter> : AppCompatActivity(), Ba
     }
 
     override fun showActionNotAvailableInOfflineMode() {}
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN && isDispatchEventActive) {
+            if (currentFocus is EditText) {
+                currentFocus.clearFocus()
+                Keyboard.hideKeyboard(this)
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
 }

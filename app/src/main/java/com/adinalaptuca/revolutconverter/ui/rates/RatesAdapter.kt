@@ -1,8 +1,10 @@
 package com.adinalaptuca.revolutconverter.ui.rates
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.os.Handler
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
@@ -12,10 +14,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import com.adinalaptuca.revolutconverter.R
 import com.adinalaptuca.revolutconverter.restmanager.data.RatesResponse
 import kotlinx.android.synthetic.main.item_currency_cell.view.*
 import com.adinalaptuca.revolutconverter.restmanager.data.Currency
+import com.adinalaptuca.revolutconverter.ui.main.MainActivity
 
 /**
  * Created by adinalaptuca on Aug, 2019
@@ -25,6 +29,7 @@ class RatesAdapter() : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
     private var originalItems: ArrayList<Currency> = arrayListOf()
     private lateinit var context: Context
     private var onScrollToTopListener: ScrollToTopListener? = null
+    private var onHideKeyboardListener: HideKeyboardListener? = null
 
     private var text: String = ""
 
@@ -88,12 +93,14 @@ class RatesAdapter() : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
                         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                     })
                 }else{
+                    currencyValue.apply{
+                        isEnabled = false
+                        setTextColor(ContextCompat.getColor(context!!, android.R.color.black))
+//                        background.mutate().setColorFilter(ContextCompat.getColor(context!!, android.R.color.black), PorterDuff.Mode.SRC_ATOP);
+                    }
                     currencyValue.setText(if(text.isNullOrEmpty()) "%.2f".format(rate.value) else "%.2f".format(rate.value * text.toDouble()))
-                }
 
-                currencyValue.setSelection(if (!currencyValue.text.isNullOrEmpty()) currencyValue.text!!.length else 0)
-
-                container.setOnClickListener {
+                    container.setOnClickListener {
 //                    items.removeAt(position)
 //                    items.add(0, rate)
 //
@@ -102,7 +109,18 @@ class RatesAdapter() : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
 //
 //                    notifyDataSetChanged()
 //                    notifyItemMoved(position, 0)
-                    onScrollToTopListener?.scrollToTop(0, rate.name)
+                        onScrollToTopListener?.scrollToTop(0, rate.name)
+                    }
+                }
+
+                currencyValue.setSelection(if (!currencyValue.text.isNullOrEmpty()) currencyValue.text!!.length else 0)
+
+                currencyValue.setOnEditorActionListener { _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        currencyValue.clearFocus()
+                        onHideKeyboardListener?.doHideKeyboard()
+                    }
+                    false
                 }
             }
         }
@@ -114,6 +132,14 @@ class RatesAdapter() : RecyclerView.Adapter<RatesAdapter.RatesViewHolder>() {
 
     fun setScrollToTopListener(listener: ScrollToTopListener) {
         this.onScrollToTopListener = listener
+    }
+
+    interface HideKeyboardListener {
+        fun doHideKeyboard()
+    }
+
+    fun setHideKeyboardListener(listener: HideKeyboardListener) {
+        this.onHideKeyboardListener = listener
     }
 
     class RatesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
